@@ -1,4 +1,4 @@
-// File: C:\Users\USER\Downloads\shopez-ecommerce(3)\app\page.tsx
+// File: C:\Users\USER\Downloads\shopez-ecommerce(4)\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

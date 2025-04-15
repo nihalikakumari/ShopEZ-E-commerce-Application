@@ -6,14 +6,14 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Heart, ShoppingCart } from "lucide-react"
 import { getFeaturedProducts } from "@/app/services/products"
-import { addToCart } from "@/app/services/cart"
 import type { Product } from "@/app/services/products"
-import { useToast } from "@/hooks/use-toast"
+import { useCart } from "@/app/context/CartContext"
+import Link from "next/link"
 
 export function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
-  const { toast } = useToast()
+  const { addToCart } = useCart()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,20 +31,7 @@ export function FeaturedProducts() {
   }, [])
 
   const handleAddToCart = async (productId: string) => {
-    try {
-      await addToCart(productId, 1)
-      toast({
-        title: "Added to cart",
-        description: "Product has been added to your cart",
-      })
-    } catch (error) {
-      console.error("Error adding to cart:", error)
-      toast({
-        title: "Error",
-        description: "Could not add product to cart",
-        variant: "destructive",
-      })
-    }
+    await addToCart(productId, 1)
   }
 
   if (loading) {
@@ -79,11 +66,13 @@ export function FeaturedProducts() {
           {products.map((product) => (
             <Card key={product._id} className="overflow-hidden group">
               <div className="relative">
-                <img
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  className="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-105"
-                />
+                <Link href={`/products/${product._id}`}>
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="w-full h-[300px] object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </Link>
                 <Button
                   size="icon"
                   variant="ghost"
@@ -98,20 +87,22 @@ export function FeaturedProducts() {
                 </div>
               </div>
               <CardContent className="p-4">
-                <div className="text-sm text-gray-500 dark:text-gray-400">{product.category}</div>
-                <h3 className="font-semibold text-lg mt-1">{product.name}</h3>
-                <div className="flex items-center mt-1">
-                  {product.originalPrice ? (
-                    <>
-                      <span className="font-bold text-rose-600 dark:text-rose-400">${product.price.toFixed(2)}</span>
-                      <span className="ml-2 text-sm line-through text-gray-500">
-                        ${product.originalPrice.toFixed(2)}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="font-bold">${product.price.toFixed(2)}</span>
-                  )}
-                </div>
+                <Link href={`/products/${product._id}`}>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{product.category}</div>
+                  <h3 className="font-semibold text-lg mt-1">{product.name}</h3>
+                  <div className="flex items-center mt-1">
+                    {product.originalPrice ? (
+                      <>
+                        <span className="font-bold text-rose-600 dark:text-rose-400">${product.price.toFixed(2)}</span>
+                        <span className="ml-2 text-sm line-through text-gray-500">
+                          ${product.originalPrice.toFixed(2)}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="font-bold">${product.price.toFixed(2)}</span>
+                    )}
+                  </div>
+                </Link>
               </CardContent>
               <CardFooter className="p-4 pt-0">
                 <Button className="w-full" onClick={() => handleAddToCart(product._id)}>
@@ -123,8 +114,8 @@ export function FeaturedProducts() {
           ))}
         </div>
         <div className="flex justify-center mt-10">
-          <Button variant="outline" size="lg">
-            View All Products
+          <Button variant="outline" size="lg" asChild>
+            <Link href="/products">View All Products</Link>
           </Button>
         </div>
       </div>

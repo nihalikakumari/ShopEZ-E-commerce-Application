@@ -5,7 +5,9 @@ import { FeaturedProducts } from "@/components/featured-products"
 import { CategoryShowcase } from "@/components/category-showcase"
 import { Newsletter } from "@/components/newsletter"
 import { Footer } from "@/components/footer"
-import { ShoppingBag } from "lucide-react"
+import { ShoppingBag, Search, Menu } from "lucide-react"
+import Link from "next/link"
+import { CartIndicator } from "@/components/cart-indicator"
 
 export default function Home() {
   return (
@@ -13,66 +15,29 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center">
           <div className="mr-4 hidden md:flex">
-            <a href="/" className="mr-6 flex items-center space-x-2">
+            <Link href="/" className="mr-6 flex items-center space-x-2">
               <ShoppingBag className="h-6 w-6" />
               <span className="font-bold text-xl">ShopEZ</span>
-            </a>
+            </Link>
             <MainNav />
           </div>
           <div className="flex md:hidden">
-            <a href="/" className="mr-2 flex items-center space-x-2">
+            <Link href="/" className="mr-2 flex items-center space-x-2">
               <ShoppingBag className="h-6 w-6" />
               <span className="font-bold">ShopEZ</span>
-            </a>
+            </Link>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-4">
             <nav className="flex items-center space-x-2">
               <Button variant="ghost" size="icon" className="md:hidden">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
               <Button variant="ghost" size="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+                <Search className="h-5 w-5" />
                 <span className="sr-only">Search</span>
               </Button>
-              <Button variant="ghost" size="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                  />
-                </svg>
-                <span className="sr-only">Cart</span>
-              </Button>
+              <CartIndicator />
               <UserNav />
             </nav>
           </div>
@@ -91,9 +56,11 @@ export default function Home() {
                   handbags, find the perfect piece to express your unique style.
                 </p>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button size="lg">Shop Now</Button>
-                  <Button size="lg" variant="outline">
-                    View Collections
+                  <Button size="lg" asChild>
+                    <Link href="/products">Shop Now</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                    <Link href="/products">View Collections</Link>
                   </Button>
                 </div>
               </div>

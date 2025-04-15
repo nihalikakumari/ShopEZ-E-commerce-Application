@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function CategoryShowcase() {
   const categories = [
@@ -6,19 +7,19 @@ export function CategoryShowcase() {
       name: "Bracelets",
       description: "Elegant designs for every occasion",
       image: "/placeholder.svg?height=400&width=300",
-      link: "/products/bracelets",
+      link: "/products/category/Bracelets",
     },
     {
       name: "Handbags",
       description: "Stylish and functional accessories",
       image: "/placeholder.svg?height=400&width=300",
-      link: "/products/handbags",
+      link: "/products/category/Handbags",
     },
     {
       name: "Jewelry",
       description: "Timeless pieces that make a statement",
       image: "/placeholder.svg?height=400&width=300",
-      link: "/products/jewelry",
+      link: "/products/category/Jewelry",
     },
   ]
 
@@ -47,8 +48,9 @@ export function CategoryShowcase() {
                 <Button
                   variant="outline"
                   className="mt-4 bg-transparent border-white text-white hover:bg-white hover:text-black transition-colors w-fit"
+                  asChild
                 >
-                  Explore
+                  <Link href={category.link}>Explore</Link>
                 </Button>
               </div>
             </div>

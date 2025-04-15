@@ -8,7 +8,7 @@
       "dev": "nodemon index.js",
       "server": "nodemon index.js",
       "seed": "node seed/seed.js",
-      "data:import": "node dataImport.js",
+      "data:import": "node seed/seed.js",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
